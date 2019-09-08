@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+        <title>Employee Details</title>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Employee Directory</h3>
+            <hr>
+            <p class="h4 mb-4">Add/Update Employee</p>
+            <form action="#" th:action="@{/employees/save}" th:object="${employee}" method="POST" autocomplete="off">
+                <!-- since we are using same form for add and update,
+                  we need to bind id input field to customer object
+                  to avoid duplicating records on update -->
+                <input type="hidden" th:field="*{id}"/>
+                <div class="form-group" th:classappend="${#fields.hasErrors('firstName')} ? has-error">
+                    <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First Name"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name error messages</span>
+                </div>
+               <div class="form-group" th:classappend="${#fields.hasErrors('lastName')} ? has-error">
+                    <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last Name"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name error messages</span>
+               </div>
+               <!-- <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error"> -->
+                    <input type="email" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" required/>
+                   <!-- <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error messages</span> -->
+               <!-- </div> -->
+                <div class="form-group">
+                    Load photo: <input type="file" name="img"/>
+                </div>
+                <button type="submit" class="btn btn-success col-2">Confirm</button>
+               <!-- <button type="reset" class="btn btn-dark col-2">Reset</button> -->
+                <!-- when form is LOADED will call the getters getFirstName...-->
+                <!-- when form is SUBMITTED will call the setters -->
+            </form>
+            <hr>
+            <a th:href="@{/employees/list}">Back to Employees List</a>
+        </div>
+    </body>
+</html>
